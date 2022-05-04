@@ -1,5 +1,8 @@
 .root {
-        -fx-background-color: #31f7ff;
+        -fx-background-image: url("bg.jpg");
+        -fx-background-repeat: stretch;
+        -fx-background-size: 600 400;
+        -fx-background-position: center center;
         }
 
         .table-view .column-header-background{
@@ -43,13 +46,13 @@
         .label {
         -fx-font-size: 16px;
         -fx-font-weight: bolder;
-        -fx-text-fill: green;
+        -fx-text-fill: black;
         }
 
         #title-text {
         -fx-font-size: 40px;
         -fx-font-family: "Arial Rounded MT Bold";
-        -fx-fill: yellow;
+        -fx-fill: black;
         }
 
         #actionTarget {
@@ -58,7 +61,7 @@
         }
 
         .button {
-        -fx-text-fill: white;
+        -fx-text-fill: black;
         -fx-font-family: "Arial Narrow";
         -fx-font-weight: bold;
         }
