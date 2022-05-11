@@ -17,6 +17,8 @@ public class InputController {
     public Text inputMessage;
     @FXML
     public TextField digitsField;
+    @FXML
+    public Text outputMessage;
 
     @FXML
     public void HandleCalculateButtonAction1() {
@@ -27,6 +29,11 @@ public class InputController {
             return;
         } else {
             inputMessage.setText("Calculating " + digits + " of Pi");
+
+            outputMessage.setText("SCORE = 3.14");
+
+
+
             return;
         }
 /*
