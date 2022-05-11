@@ -1,3 +1,4 @@
+//package testbench;
 package loose.oose.fis.lab.student.manager.controllers;
 
 import javafx.fxml.FXML;
@@ -10,6 +11,11 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+
+import bench.CPUDigitsOfPi;
+import logging.ConsoleLogger;
+import logging.FileLogger;
+import timing.Timer;
 
 public class InputController {
 
@@ -29,11 +35,21 @@ public class InputController {
             return;
         } else {
             inputMessage.setText("Calculating " + digits + " of Pi");
-
-            outputMessage.setText("SCORE = 3.14");
-
-
-
+//CpuBench.java---------------------------------------------------
+            Timer.start();
+            CPUDigitsOfPi benchmark=new CPUDigitsOfPi();
+            benchmark.initialize(9);
+            benchmark.warmup();
+            benchmark.initialize(9);
+            benchmark.run();
+            ConsoleLogger.write(Timer.stop()/1000000);
+            long score = Timer.stop()/1000000;
+            outputMessage.setText("SCORE = " + score);
+            //Offset = 100 * (Timer.totalTime - 1000*1000000) / (1000*1000000);
+            //ConsoleLogger.write(Offset);
+            //System.out.println(CPUDigitsOfPi.pi);
+            ConsoleLogger.close();
+//---------------------------------------------------CpuBench.java
             return;
         }
 /*

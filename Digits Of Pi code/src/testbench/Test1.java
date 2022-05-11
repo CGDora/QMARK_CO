@@ -30,8 +30,7 @@ public class Test1 {
 			long time = Timer.pause();
 			ConsoleLogger.write("Run "+i+":" + (time)/1000000);
 		}
-		ConsoleLogger.write("Finished in" + Timer.stop()/1000000);
-		//COMMENT: GIT WORKS nyohohohohohohohohohohohohoho
+		ConsoleLogger.write("Finished in " + Timer.stop()/1000000);
 		
 		FileLogger x = new FileLogger("input.txt");
 		FileLogger.write(0);
