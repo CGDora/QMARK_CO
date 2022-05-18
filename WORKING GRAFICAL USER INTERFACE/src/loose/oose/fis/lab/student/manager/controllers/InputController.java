@@ -26,11 +26,27 @@ public class InputController {
     @FXML
     public Text outputMessage;
 
+    public int toInt(){//returns integer version of digitsField
+        String toConvert = digitsField.getText();
+        int digits = 0;
+
+        try {
+            digits = Integer.parseInt(toConvert);
+        }
+        catch (NumberFormatException e) {
+
+            // This is thrown when the String
+            // contains characters other than digits
+            System.out.println("Invalid String");
+        }
+        return digits;
+    }
+
     @FXML
     public void HandleCalculateButtonAction1() {
-        String digits = digitsField.getText();
+        int digits = toInt();
 
-        if (digits == null || digits.isEmpty()) {
+        if (digits<=0) {
             inputMessage.setText("Select number of digits");
             return;
         } else {
@@ -41,10 +57,10 @@ public class InputController {
             benchmark.initialize(9);
             benchmark.warmup();
             benchmark.initialize(9);
-            benchmark.run();
+            benchmark.run(digits);
             ConsoleLogger.write(Timer.stop()/1000000);
             long score = Timer.stop()/1000000;
-            outputMessage.setText("SCORE = " + score);
+            outputMessage.setText("Time = " + score + "");
             //Offset = 100 * (Timer.totalTime - 1000*1000000) / (1000*1000000);
             //ConsoleLogger.write(Offset);
             //System.out.println(CPUDigitsOfPi.pi);
