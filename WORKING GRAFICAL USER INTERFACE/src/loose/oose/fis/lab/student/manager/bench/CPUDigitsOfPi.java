@@ -1,8 +1,8 @@
-package bench;
+package loose.oose.fis.lab.student.manager.bench;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-public class CPUDigitsOfPi implements IBenchmark{
+public class CPUDigitsOfPi implements IBenchmark {
 	private int size;
 	public static BigDecimal pi =  BigDecimal.ZERO;
 	public static BigDecimal denom1 =  BigDecimal.ONE;

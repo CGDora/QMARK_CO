@@ -1,11 +1,11 @@
-package testbench;
+package loose.oose.fis.lab.student.manager.testbench;
 
 import java.io.IOException;
 
-import bench.DemoBench;
-import bench.ThreadBench;
-import logging.ConsoleLogger;
-import logging.FileLogger;
+
+import loose.oose.fis.lab.student.manager.bench.ThreadBench;
+import loose.oose.fis.lab.student.manager.logging.ConsoleLogger;
+import loose.oose.fis.lab.student.manager.logging.FileLogger;
 import timing.Timer;
 
 public class Test1 {

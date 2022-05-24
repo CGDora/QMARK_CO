@@ -1,4 +1,4 @@
-package bench;
+package loose.oose.fis.lab.student.manager.bench;
 
 import java.util.Random;
 

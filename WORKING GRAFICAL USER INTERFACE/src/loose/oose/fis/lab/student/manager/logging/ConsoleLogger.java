@@ -1,4 +1,4 @@
-package logging;
+package loose.oose.fis.lab.student.manager.logging;
 
 import java.util.concurrent.TimeUnit;
 

@@ -1,9 +1,9 @@
-package testbench;
+package loose.oose.fis.lab.student.manager.testbench;
 import java.io.IOException;
 
-import bench.CPUDigitsOfPi;
-import logging.ConsoleLogger;
-import logging.FileLogger;
+
+import loose.oose.fis.lab.student.manager.bench.CPUDigitsOfPi;
+import loose.oose.fis.lab.student.manager.logging.ConsoleLogger;
 import timing.Timer;
 public class CPUBench {
 	public static void main(String[] args) throws IOException {

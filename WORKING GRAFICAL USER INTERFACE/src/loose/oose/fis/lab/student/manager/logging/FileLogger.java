@@ -1,4 +1,4 @@
-package logging;
+package loose.oose.fis.lab.student.manager.logging;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -42,8 +42,8 @@ public class FileLogger implements ILog{
 	    	String output;
 	    	Long y=x;
 	    	output=y.toString();
-	        myWriter = new FileWriter(FILES);
-	        myWriter.write(output);
+	        myWriter = new FileWriter(FILES,true);
+	        myWriter.write(output+"\n");
 	        myWriter.close();
 	        System.out.println("Successfully wrote to the file.");
 	      } catch (IOException e) {

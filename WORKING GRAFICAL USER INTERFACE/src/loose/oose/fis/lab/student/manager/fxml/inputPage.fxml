@@ -30,7 +30,7 @@
     </HBox>
 
     <Text fx:id="inputMessage" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-
+    <Text fx:id="outputMessageHistory" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
     <Text id="title-text" GridPane.columnSpan="2" fx:id="outputMessage" GridPane.columnIndex="0" GridPane.rowIndex="6" />
     <stylesheets>
         <URL value="@../css/styles.xsl"/>
