@@ -24,7 +24,7 @@ import loose.oose.fis.lab.student.manager.logging.ConsoleLogger;
 
 import timing.Timer;
 
-import static java.lang.Math.pow;
+import static java.lang.Math.*;
 
 
 public class InputController {
@@ -69,11 +69,10 @@ public class InputController {
             benchmark.initialize(9);
             benchmark.run(digits);
             //ConsoleLogger.write(Timer.stop()/1000000);
-            long score = Timer.stop()/1000000 ;
-            double points;
-            points=pow(score,-1);
-            points=points*100;
-            outputMessage.setText("TEMP SCORE = " + (long)points + "");
+            double calculateTime = Timer.stop()/1000000000.0 ;
+            double points = 40 + digits / (200 * log(calculateTime/0.03));
+
+            outputMessage.setText("SCORE = " + String.format("%.2f", points) + "");
             //Offset = 100 * (Timer.totalTime - 1000*1000000) / (1000*1000000);
             //ConsoleLogger.write(Offset);
             //System.out.println(CPUDigitsOfPi.pi);
@@ -93,7 +92,7 @@ public class InputController {
             inputMessage.setText("Select number of digits");
             return;
         } else {
-            inputMessage.setText("Calculating " + digits + " of Pi");
+            inputMessage.setText("Calculating " + digits + " digits of Pi");
 //CpuBench.java---------------------------------------------------
             BigDecimal x = new BigDecimal(0);
             Timer.start();
@@ -104,11 +103,10 @@ public class InputController {
 
             x=benchmark.run();
             //ConsoleLogger.write(Timer.stop()/1000000);
-            long score = Timer.stop();
-            double points;
-            points=pow(score,-1)/1000000 ;
-            points = points *100;
-            outputMessage.setText("TEMP SCORE = " + points + "");
+            double calculatedTime = Timer.stop()/1000000000.0 ;
+            double points = digits / ( 1000 * sqrt(calculatedTime));
+
+            outputMessage.setText("SCORE = " + String.format("%.2f", points) + "");
             //Offset = 100 * (Timer.totalTime - 1000*1000000) / (1000*1000000);
             //ConsoleLogger.write(Offset);
             System.out.println(x);
