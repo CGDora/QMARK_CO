@@ -1,6 +1,15 @@
 //package testbench;
 package loose.oose.fis.lab.student.manager.controllers;
-
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import java.util.concurrent.TimeUnit;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.TilePane;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -55,12 +64,15 @@ public class InputController {
     @FXML
     public void HandleCalculateButtonAction1() {
         int digits = toInt();
-
+        int l=0;
         if (digits <= 0) {
-            inputMessage.setText("Select number of digits");
+            outputMessage.setText("                       Error");
+            outputMessageHistory.setText("");
+            l=1;
             return;
         } else {
-            inputMessage.setText("Calculating " + digits + " of Pi");
+            outputMessageHistory.setText("");
+            //inputMessage.setText("Calculating " + digits + " of Pi");
 //CpuBench.java---------------------------------------------------
             Timer.start();
             CPUDigitsOfPi benchmark = new CPUDigitsOfPi();
@@ -72,12 +84,12 @@ public class InputController {
             double calculateTime = Timer.stop()/1000000000.0 ;
             double points = 40 + digits / (200 * log(calculateTime/0.03));
 
-            outputMessage.setText("SCORE = " + String.format("%.2f", points) + "");
+            outputMessage.setText("       " + String.format("%.2f", points) + "");
             //Offset = 100 * (Timer.totalTime - 1000*1000000) / (1000*1000000);
             //ConsoleLogger.write(Offset);
             //System.out.println(CPUDigitsOfPi.pi);
             FileLogger logger = new FileLogger("history");
-            FileLogger.write((long)points);
+            if(points != '0') FileLogger.write((long)points);
             ConsoleLogger.close();
 //---------------------------------------------------CpuBench.java
             return;
@@ -89,10 +101,12 @@ public class InputController {
         int digits = toInt();
 
         if (digits <= 0) {
-            inputMessage.setText("Select number of digits");
+            outputMessage.setText("                        Error");
+            outputMessageHistory.setText("");
             return;
         } else {
-            inputMessage.setText("Calculating " + digits + " digits of Pi");
+            outputMessageHistory.setText("");
+            //inputMessage.setText("Calculating " + digits + " digits of Pi");
 //CpuBench.java---------------------------------------------------
             BigDecimal x = new BigDecimal(0);
             Timer.start();
@@ -106,31 +120,33 @@ public class InputController {
             double calculatedTime = Timer.stop()/1000000000.0 ;
             double points = digits / ( 1000 * sqrt(calculatedTime));
 
-            outputMessage.setText("SCORE = " + String.format("%.2f", points) + "");
+            outputMessage.setText("               " + String.format("%.2f", points) + "");
             //Offset = 100 * (Timer.totalTime - 1000*1000000) / (1000*1000000);
             //ConsoleLogger.write(Offset);
             System.out.println(x);
             FileLogger logger = new FileLogger("history");
-            FileLogger.write((long)points);
+            if(points != '0') FileLogger.write((long)points);
             ConsoleLogger.close();
 //---------------------------------------------------CpuBench.java
             return;
         }
     }
-        @FXML
-        public void HandleHistoryButtonAction() throws IOException {
-            String digits2 = digitsField.getText();
+    @FXML
+    public void HandleHistoryButtonAction() throws IOException {
+        String digits2 = digitsField.getText();
 
-            FileReader fr = new FileReader("history");
-            int i;
-            String historyResult = "";
-            while ((i = fr.read()) != -1)
-                historyResult = historyResult + (char) i;
-            fr.close();
-            inputMessage.setText("History");
-            outputMessageHistory.setText(historyResult);
-
-
+        FileReader fr = new FileReader("history");
+        int i;
+        outputMessage.setText("");
+        String historyResult = "";
+        while ((i=fr.read()) != -1) {
+            historyResult = historyResult + (char) i;
+            //outputMessageHistory.setText(" ");
         }
+        fr.close();
+        outputMessageHistory.setText("                    "+historyResult);
+        //inputMessage.setText("History");
 
     }
+
+}
