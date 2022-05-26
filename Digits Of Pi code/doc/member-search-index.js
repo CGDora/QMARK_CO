@@ -1,1 +1,0 @@
-memberSearchIndex = [{"p":"bench","c":"IBenchmark","l":"cancel()"},{"p":"bench","c":"IBenchmark","l":"clean()"},{"p":"bench","c":"IBenchmark","l":"initialize(Object)","u":"initialize(java.lang.Object)"},{"p":"bench","c":"IBenchmark","l":"run()"},{"p":"bench","c":"IBenchmark","l":"run(Object)","u":"run(java.lang.Object)"}];updateSearchResults();
