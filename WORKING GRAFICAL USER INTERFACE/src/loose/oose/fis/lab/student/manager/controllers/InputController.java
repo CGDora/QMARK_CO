@@ -4,9 +4,13 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+
+import java.io.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.concurrent.TimeUnit;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+
+import javafx.scene.control.*;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
@@ -14,14 +18,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.lang.Math;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.CharBuffer;
 
@@ -45,6 +44,26 @@ public class InputController {
     public TextField digitsField;
     @FXML
     public Text outputMessage;
+    @FXML
+    public Text timeMessage;
+    @FXML
+    public ListView<String> historyList;
+
+    public void writeLog(String log){
+        try{
+            FileWriter fileWriter = new FileWriter("history.txt",true);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            System.out.println(log);
+            bufferedWriter.write(log);
+            bufferedWriter.newLine();
+            historyList.getItems().add(log);
+
+            bufferedWriter.close();
+        }
+        catch(Exception ex){
+            return;
+        }
+    }
 
     public int toInt() {//returns integer version of digitsField
         String toConvert = digitsField.getText();
@@ -62,12 +81,13 @@ public class InputController {
     }
 
     @FXML
-    public void HandleCalculateButtonAction1() {
+    public void HandleCalculateButtonAction1(ActionEvent event) {
         int digits = toInt();
         int l=0;
         if (digits <= 0) {
-            outputMessage.setText("                       Error");
+            outputMessage.setText("        Error");
             outputMessageHistory.setText("");
+            timeMessage.setText("Time: ");
             l=1;
             return;
         } else {
@@ -81,15 +101,21 @@ public class InputController {
             benchmark.initialize(9);
             benchmark.run(digits);
             //ConsoleLogger.write(Timer.stop()/1000000);
-            double calculateTime = Timer.stop()/1000000000.0 ;
-            double points = 40 + digits / (200 * log(calculateTime/0.03));
+            double calculatedTime = Timer.stop()/1000000000.0 ;
+            double points = 40 + digits / (200 * log(calculatedTime/0.03));
 
-            outputMessage.setText("       " + String.format("%.2f", points) + "");
+            outputMessage.setText("       " + String.format("%.2f", points));
+            timeMessage.setText("Time: " + String.format("%.2f", calculatedTime) + " seconds");
             //Offset = 100 * (Timer.totalTime - 1000*1000000) / (1000*1000000);
             //ConsoleLogger.write(Offset);
             //System.out.println(CPUDigitsOfPi.pi);
-            FileLogger logger = new FileLogger("history");
-            if(points != '0') FileLogger.write((long)points);
+            /**Reading results in the file*/
+            String historyLog = LocalDate.now() + ", " + LocalTime.now() + ":  G = "
+                    + String.format("%.2f", points) + " (" + digits + " d / " + String.format("%.2f", calculatedTime) + " s)";
+            if(points != '0') {
+                writeLog(historyLog);
+            }
+
             ConsoleLogger.close();
 //---------------------------------------------------CpuBench.java
             return;
@@ -97,12 +123,13 @@ public class InputController {
     }
 
     @FXML
-    public void HandleCalculateButtonAction2() {
+    public void HandleCalculateButtonAction2(ActionEvent event) {
         int digits = toInt();
 
         if (digits <= 0) {
-            outputMessage.setText("                        Error");
+            outputMessage.setText("        Error");
             outputMessageHistory.setText("");
+            timeMessage.setText("Time: ");
             return;
         } else {
             outputMessageHistory.setText("");
@@ -120,32 +147,40 @@ public class InputController {
             double calculatedTime = Timer.stop()/1000000000.0 ;
             double points = digits / ( 1000 * sqrt(calculatedTime));
 
-            outputMessage.setText("               " + String.format("%.2f", points) + "");
+            outputMessage.setText("       " + String.format("%.2f", points));
+            timeMessage.setText("Time: " + String.format("%.2f", calculatedTime) + " seconds");
             //Offset = 100 * (Timer.totalTime - 1000*1000000) / (1000*1000000);
             //ConsoleLogger.write(Offset);
             System.out.println(x);
-            FileLogger logger = new FileLogger("history");
-            if(points != '0') FileLogger.write((long)points);
+            /**Reading results in the file*/
+            String historyLog = LocalDate.now() + ", " + LocalTime.now() + ":  H = "
+                    + String.format("%.2f", points) + " (" + digits + " d / " + String.format("%.2f", calculatedTime) + " s)";
+            if(points != '0') {
+                writeLog(historyLog);
+            }
+
             ConsoleLogger.close();
 //---------------------------------------------------CpuBench.java
             return;
         }
     }
     @FXML
-    public void HandleHistoryButtonAction() throws IOException {
+    public void HandleHistoryButtonAction(ActionEvent event) throws IOException {
         String digits2 = digitsField.getText();
 
-        FileReader fr = new FileReader("history");
-        int i;
-        outputMessage.setText("");
-        String historyResult = "";
-        while ((i=fr.read()) != -1) {
-            historyResult = historyResult + (char) i;
-            //outputMessageHistory.setText(" ");
+        FileReader fileReader = new FileReader("history.txt");
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        String[] line = new String[256];
+        int i=0;
+
+        historyList.getItems().clear();
+
+        while ((line[i] =bufferedReader.readLine()) != null) {
+            //System.out.println(line[i]);
+            historyList.getItems().add(line[i]);
+            i++;
         }
-        fr.close();
-        outputMessageHistory.setText("                    "+historyResult);
-        //inputMessage.setText("History");
+        bufferedReader.close();
 
     }
 

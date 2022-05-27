@@ -1,38 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import java.net.URL?>
-<GridPane xmlns:fx="http://javafx.com/fxml/1" alignment="center" hgap="10" vgap="10" prefWidth="600" prefHeight="400"
-          xmlns="http://javafx.com/javafx/8.0.172-ea"
-          fx:controller="loose.oose.fis.lab.student.manager.controllers.InputController"
-          styleClass="root-pane">
-    <padding>
-        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0"/>
-    </padding>
 
-    <Label text="Number of Digits:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-
-    <TextField fx:id="digitsField" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-
-    <HBox alignment="center" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="0">
-        <Button onAction="#HandleCalculateButtonAction1" text="Calculate Method 1"/>
-    </HBox>
-
-    <HBox alignment="center" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="1">
-        <Button onAction="#HandleCalculateButtonAction2" text="Calculate Method 2"/>
-    </HBox>
-
-    <HBox alignment="bottom_left" spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="4">
-        <Button onAction="#HandleHistoryButtonAction" text="History"/>
-    </HBox>
-
-    <Text fx:id="inputMessage" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-    <Text fx:id="outputMessageHistory" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
-    <Text id="title-text" GridPane.columnSpan="2" fx:id="outputMessage" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-    <stylesheets>
-        <URL value="@../css/styles.xsl"/>
-    </stylesheets>
-</GridPane>
+<BorderPane id="scenePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" style="-fx-background-image: puzzle;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="loose.oose.fis.lab.student.manager.controllers.InputController">
+    <left>
+        <AnchorPane prefHeight="500.0" prefWidth="373.0" style="-fx-background-color: #fdcd21;" BorderPane.alignment="CENTER">
+            <children>
+                <ImageView fitHeight="345.0" fitWidth="377.0" layoutX="8.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../css/Duck1.png" />
+                    </image>
+                </ImageView>
+            <ListView fx:id="historyList" layoutX="2.0" layoutY="331.0" prefHeight="168.0" prefWidth="407.0" style="-fx-background-color: #fdcd21;" />
+            </children>
+        </AnchorPane>
+    </left>
+    <right>
+        <AnchorPane prefHeight="500.0" prefWidth="421.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button layoutX="108.0" layoutY="189.0" mnemonicParsing="false" onAction="#HandleCalculateButtonAction1" style="-fx-background-color: #fdcd21;" text="Gauss Method (G)" />
+                <Button layoutX="106.0" layoutY="269.0" mnemonicParsing="false" onAction="#HandleHistoryButtonAction" style="-fx-background-color: #fdcd21;" text="History" />
+                <Button layoutX="108.0" layoutY="226.0" mnemonicParsing="false" onAction="#HandleCalculateButtonAction2" style="-fx-background-color: #fdcd21;" text="Heron Method (H)" />
+                <ImageView fitHeight="111.0" fitWidth="108.0" layoutX="182.0" layoutY="38.0">
+                    <image>
+                        <Image url="@../css/Duck3.png" />
+                    </image>
+                </ImageView>
+                <Text layoutX="30.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Digits:" wrappingWidth="88.052734375">
+                    <font>
+                        <Font name="Bradley Hand ITC" size="28.0" />
+                    </font>
+                </Text>
+                <TextField fx:id="digitsField" layoutX="32.0" layoutY="114.0" />
+                <Text layoutX="30.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                <Text fx:id="inputMessage" layoutX="30.0" layoutY="361.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Result:" wrappingWidth="88.052734375">
+                    <font>
+                        <Font name="Bradley Hand ITC" size="28.0" />
+                    </font>
+                </Text>
+                <Text fx:id="outputMessage" layoutX="30.0" layoutY="361.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Result:" wrappingWidth="88.052734375">
+                    <font>
+                        <Font name="Bradley Hand ITC" size="28.0" />
+                    </font>
+                </Text>
+                <Text fx:id="outputMessageHistory" layoutX="30.0" layoutY="361.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Result:" wrappingWidth="88.052734375">
+                    <font>
+                        <Font name="Bradley Hand ITC" size="28.0" />
+                    </font>
+                </Text>
+            <Text fx:id="timeMessage" layoutX="37.0" layoutY="448.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time: ">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Text>
+            </children>
+        </AnchorPane>
+    </right>
+</BorderPane>
